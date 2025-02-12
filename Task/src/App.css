@@ -1,0 +1,106 @@
+/* General Container */
+.container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Projects Section */
+.PROJECTS_CONTAINER {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.Projects {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Projects h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.Projects p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Developer Section */
+.Developercontainer {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e9f5e9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Developercontainer p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.Developercontainer b {
+  color: #2a9d8f;
+}
+
+/* Task Section */
+.taskbtn {
+  background-color: #db2c0e;
+}
+
+.taskbtn:hover {
+  background-color: #f57c00;
+}
+
+.taskcontainer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffe0b2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.taskcontainer p {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.taskcontainer b {
+  color: #d1495b;
+}
+.Adddevarea {
+  margin-top: 20px;
+  
+}
+
+.Adddevarea button {
+  display: inline-block;
+  background-color: #576686;
+  padding: 8px 16px;
+}
+
+.Adddevarea button:hover {
+  background-color: #565e64;
+}
