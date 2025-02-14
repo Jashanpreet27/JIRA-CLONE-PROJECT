@@ -10,7 +10,15 @@ const AddProject = () => {
     function handleadd(e){
    
    e.preventDefault()
+   if(title === ""){
+alert("Enter project name !!");
+   }
+   else if(dis === ""){
+    alert("Enter Discription !!");
+   }
+   else{
    dispatch(add({title,dis}))
+   }
    settitle("");
    setdiscr("")
   }

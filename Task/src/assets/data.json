@@ -5,20 +5,20 @@
             "Project_Description":"This project proposes an innovative solution for urban food production using sustainable farming methods in small spaces, such as rooftops or community gardens. The system will integrate hydroponics or vertical farming techniques, utilizing sensors and automated systems for monitoring soil moisture, temperature, light, and nutrient levels. The goal is to increase the efficiency of food production in urban environments while minimizing the use of water, space, and energy. The project will involve research into sustainable agriculture practices, hardware design for sensors, and software for system control and monitoring",
             "start_date":"12-07-2022",
             "end_date":"",
-            "status":"IN PROGRESS",
+            "status":"In Progress",
             "Developers":[
                 {
-                    "D_id":"1",
+                    "D_id":"101",
                     "D_Name":"ABC",
                     "D_Email":"gdg@gmail.com"
                     ,"Role":"frontend",
                      "Tasks":[
                         {
-                            "Task_id":"1",
+                            "Task_id":"201",
                             "Task_Name":"Make header",
                             "Task_Descript":"Make a good gui",
                             "Assign_developer_id":"",
-                            "Task_Status":"Inprogress"
+                            "Task_Status":"In Progress"
                         }
                      ]
                 }
@@ -31,20 +31,20 @@
             "Project_Description":"This project focuses on developing a smart home automation system that uses Internet of Things (IoT) technology to control home appliances remotely. Through a mobile app or voice assistant, users can turn lights, fans, air conditioning, and other appliances on/off, monitor energy usage, and set schedules for devices. The system will also incorporate security features such as motion sensors and cameras that send alerts to the user’s phone. This project will involve hardware integration with sensors and actuators, as well as software development for mobile applications and backend systems",
             "start_date":"12-07-2021",
             "end_date":"",
-            "status":"IN PROGRESS",
+            "status":"In Progress",
             "Developers":[
                 {
-                    "D_id":"2",
+                    "D_id":"102",
                     "D_Name":"ABC",
                     "D_Email":"gdg@gmail.com"
                     ,"Role":"frontend",
                      "Tasks":[
                         {
-                            "Task_id":"1",
+                            "Task_id":"202",
                             "Task_Name":"Make header",
                             "Task_Descript":"Make a good gui",
                             "Assign_developer_id":"",
-                            "Task_Status":"Inprogress"
+                            "Task_Status":"In Progress"
                         }
                      ]
                 }

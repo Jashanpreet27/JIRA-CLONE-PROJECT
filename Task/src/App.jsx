@@ -3,19 +3,30 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { load } from './features/projectSlice'
+import { deletedeveloper, deleteproject, deletetask, load, taskupdate } from './features/projectSlice'
 import AddProject from './components/AddProject'
 import AddDeveloper from './components/AddDeveloper'
 import { ToastContainer } from 'react-toastify'
 import Task from './components/Task'
+import Projectstatus from './components/Projectstatus'
 
+import img from './assets/delete.png'
 
 function App() {
   const [count, setCount] = useState(0)
   const [visibleDev, setVisibleDev] = useState({});
   const [visibleTask, setVisibleTask] = useState({});
+  const dispatch = useDispatch();
+  const [status, settaskstatus] = useState()
   const [devsec, setdevsec] = useState({})
   const [tasksec, settasksec] = useState({})
+
+  const [taskStatus, setTaskStatus] = useState(""); // local state for task status
+
+  const handleStatusChange = (e, taskid, did, pid) => {
+    setTaskStatus(e.target.value)
+    dispatch(taskupdate({ taskStatus: e.target.value, taskid, did, pid }));
+  };
   const toggleDevVisibility = (projectid) => {
     setVisibleDev((prev) => ({ ...prev, [projectid]: !prev[projectid] }))
     console.log(visibleDev[projectid]);
@@ -36,11 +47,35 @@ function App() {
     // console.log(state.app.data)
     return state.app;
   })
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(load())
   }, []);
-
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'PENDING':
+        return 'pending';
+      case 'In Progress':
+        return 'in-progress';
+      case 'REVIEW':
+        return 'review';
+      case 'TESTING':
+        return 'testing';
+      case 'COMPLETED':
+        return 'completed';
+      default:
+        return '';
+    }
+  };
+  function handleprojectdelte(projectid) {
+    dispatch(deleteproject({ id: projectid }))
+  }
+  function handledeveloperdelte(projectid, developerid) {
+    dispatch(deletedeveloper({ projectid, developerid }))
+  }
+  function handletaskdelete(projectid, developerid, taskid) {
+    dispatch(deletetask({ projectid, developerid, taskid }))
+  }
   return (
     <>
 
@@ -55,11 +90,14 @@ function App() {
               return (
                 <div className='Projects'
                   key={ele.Project_id}>
-                  <h3>{ele.Project_Name} <br />(  {ele.status} )</h3>
-                  <p>{ele.Project_Description}</p>
-                  <p>Start on {ele.start_date}</p>
 
-                  <button onClick={() => toggleDevVisibility(index)}>DEVELOPER LIST</button>
+                  <h3>{ele.Project_Name} <br /><br /><b className={getStatusClass(ele.status)}> (  {ele.status} )</b></h3>
+                  <button className='deletelogo' onClick={() => handleprojectdelte(ele.Project_id)}><img src={img} alt="DELETE" ></img></button>
+                  <br/><br /><Projectstatus id={ele.Project_id} />
+                  <br /> <p>{ele.Project_Description}</p>
+                  <br /><p>Start on {ele.start_date}</p>
+
+                  <br /> <button onClick={() => toggleDevVisibility(index)}>DEVELOPER LIST</button>
 
                   {visibleDev[index] &&
                     <>
@@ -70,10 +108,11 @@ function App() {
                               <div className='Developercontainer'
                                 key={index}>
                                 <p>DEVELOPER NAME : <b>{item.D_Name}</b></p>
-                                <p>DEVELOPER ID : <b>{item.D_id}</b></p>
-                                <p>ROLE : <b>{(item.Role)}</b></p>
-                                <p>DEVELOPER EMAIL : <b>{item.D_Email}</b></p>
-                                <button
+                                <button className='deletelogodev' onClick={() => handledeveloperdelte(ele.Project_id, item.D_id)}><img src={img} alt="DELETE" ></img></button>
+                                <br /> <p>DEVELOPER ID : <b>{item.D_id}</b></p>
+                                <br /> <p>ROLE : <b>{(item.Role)}</b></p>
+                                <br /><p>DEVELOPER EMAIL : <b>{item.D_Email}</b></p>
+                                <br /><button
                                   className='taskbtn'
                                   onClick={() => toggleTaskVisibility(item.D_id)}
                                 >TASKS</button>
@@ -83,10 +122,64 @@ function App() {
                                     return (
                                       <>
                                         <div className='taskcontainer' key={index}>
-                                          <p>TASK  : <b>{task.Task_Name}</b></p>
-                                          <p>TASK DESRIPTION : <b>{task.Task_Descript}</b></p>
-                                          <p>TASK STATUS : <b>{task.Task_Status}</b></p>
+                                          <p>TASK  : <b>{task.Task_id}</b></p>
 
+                                          <br /><p>TASK  : <b>{task.Task_Name}</b></p>
+                                          <button className='deletelogotask' onClick={() => handletaskdelete(ele.Project_id, item.D_id, task.Task_id)}><img src={img} alt="DELETE" ></img></button>
+                                          <br /><p>TASK DESRIPTION : <b>{task.Task_Descript}</b></p>
+                                          <br /> <p>TASK STATUS : <b className={getStatusClass(task.Task_Status)}>{task.Task_Status}</b></p>
+                                          <hr></hr><br /><br /><h5>UPDATE STATUS</h5>
+                                          <br /><div className='radi'>
+                                            <div className='taskstatusoption'>
+
+                                              <label>
+                                                <input
+                                                  type="radio"
+                                                  name={`status_${task.Task_id}`}
+                                                  value="PENDING"
+
+                                                  onClick={(e) => handleStatusChange(e, task.Task_id, item.D_id, ele.Project_id)}
+                                                />
+                                                PENDING
+                                              </label>
+                                              <label>
+                                                <input
+                                                  type="radio"
+                                                  name={`status_${task.Task_id}`}
+                                                  value="In Progress"
+
+                                                  onClick={(e) => handleStatusChange(e, task.Task_id, item.D_id, ele.Project_id)}
+                                                />
+                                                IN_PROGRESS
+                                              </label>
+                                              <label>
+                                                <input
+                                                  type="radio"
+                                                  name={`status_${task.Task_id}`}
+                                                  value="REVIEW"
+
+                                                  onClick={(e) => handleStatusChange(e, task.Task_id, item.D_id, ele.Project_id)}
+                                                />
+                                                REVIEW
+                                              </label>
+                                              <label>
+                                                <input
+                                                  type="radio"
+                                                  name={`status_${task.Task_id}`}
+                                                  value="TESTING"
+
+                                                  onClick={(e) => handleStatusChange(e, task.Task_id, item.D_id, ele.Project_id)}
+                                                />
+                                                TESING(QA)
+                                              </label>
+                                              <label><input type="radio"
+                                                value="COMPLETED"
+                                                name={`status_${task.Task_id}`}
+                                                onClick={(e) => handleStatusChange(e, task.Task_id, item.D_id, ele.Project_id)}
+                                              ></input>COMPLETED✅</label>
+                                            </div>
+
+                                          </div>
                                         </div>
 
                                       </>
@@ -107,9 +200,9 @@ function App() {
                         }
                       </div>
                       <div>
-                        <button className='adddevbtn' onClick={() => toggleaddtaskVisibility(index)}>ADD TASK</button>
+                        <button className='addtaskbtn' onClick={() => toggleaddtaskVisibility(index)}>ADD TASK</button>
                         {tasksec[index] &&
-                          <Task />
+                          <Task id={ele.Project_id} />
                         }
                       </div>
                     </>

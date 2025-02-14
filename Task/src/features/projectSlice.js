@@ -7,7 +7,11 @@ export const prodata = createSlice({
     initialState: {
         data: [],
         loading: "false",
-        error: null
+        error: null,
+        proid: 10,
+        devid: 110,
+        taskid: 210
+
     },
     reducers: {
         load: (state) => {
@@ -17,12 +21,12 @@ export const prodata = createSlice({
         },
         add: (state, action) => {
             const newpro = {
-                "Project_id": state.data.length + 1,
+                "Project_id": state.proid,
                 "Project_Name": action.payload.title,
                 "Project_Description": action.payload.dis,
                 "start_date": "12-07-2022",
                 "end_date": "",
-                "status": "IN PROGRESS",
+                "status": "NOT STARTED",
                 "Developers": []
             }
             state.data.push(newpro)
@@ -31,30 +35,177 @@ export const prodata = createSlice({
                 position: "top-center",
                 closeOnClick: true
 
+
             })
+            state.proid++;
             console.log("done")
         },
         adddev: (state, action) => {
             const newdev = {
-                "D_id": state.data.length + 1,
+                "D_id": state.devid,
                 "D_Name": action.payload.name,
                 "D_Email": action.payload.email,
                 "Role": action.payload.role,
                 "Tasks": []
             }
-            
+
             const proj = state.data.find((ele) => ele.Project_id == action.payload.id)
-          
+
             if (proj) {
                 proj.Developers.push(newdev)
-                
-            }
+                state.devid++;
             
+
             toast.success("Developer added successfully!", {
                 position: "top-center",
                 closeOnClick: true
 
-            })
+            })}
+            else {
+                toast.error("Project not found!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            }
+
+        },
+        addtask: (state, action) => {
+            const newtask = {
+                "Task_id": state.taskid,
+                "Task_Name": action.payload.tname,
+                "Task_Descript": action.payload.tdiscri,
+                "Assign_developer_id": action.payload.dev,
+                "Task_Status": "NOT STARTED"
+            }
+            const proj = state.data.find((ele) => ele.Project_id === action.payload.id);
+            const dev = proj.Developers.find((ele) => ele.D_id == action.payload.dev)
+          if(proj){
+            if (dev) {
+                dev.Tasks.push(newtask)
+                state.taskid++;
+                toast.success("Task added successfully!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            }
+            else {
+                toast.error("Developer not found!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+
+            }
+        }
+        else {
+            toast.error("Project not found!", {
+                position: "top-center",
+                closeOnClick: true
+            });
+        }
+        },
+        taskupdate:(state,action) =>{
+            const proj = state.data.find((ele) => ele.Project_id === action.payload.pid);
+            if(proj){
+                const dev = proj.Developers.find((ele) => ele.D_id == action.payload.did)
+    if(dev){
+        const task=dev.Tasks.find((ele)=>ele.Task_id == action.payload.taskid)
+        if(task){
+            task.Task_Status=action.payload.taskStatus;
+            toast.success("Task Status updated successfully!", {
+                position: "top-center",
+                closeOnClick: true
+            });
+        }
+        else {
+            toast.error("task not found", {
+                position: "top-center",
+                closeOnClick: true
+            });
+        }
+
+    }
+     
+            }
+        },
+        projectupdate:(state,action)=>{
+            const proj = state.data.find((ele) => ele.Project_id === action.payload.id);
+        if(proj){
+
+
+            proj.status=action.payload.projectStatus;
+            toast.success("Task Status updated successfully!", {
+                position: "top-center",
+                closeOnClick: true
+            });
+        }
+        else {
+            toast.error("task not found", {
+                position: "top-center",
+                closeOnClick: true
+            });
+        }        
+        },
+        deleteproject:(state,action)=>{
+            const proj = state.data.findIndex((ele) => ele.Project_id === action.payload.id);
+            if(proj !== -1){
+                state.data.splice(proj,1);
+                toast.success("Project deleted successfully!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            } else {
+                toast.error("Project not found!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            }
+        },
+        deletedeveloper:(state,action)=>{
+            const proj = state.data.find((ele) => ele.Project_id === action.payload.projectid);
+            if(proj){
+                const dev = proj.Developers.findIndex((ele) => ele.D_id == action.payload.developerid)
+                if(dev !== -1){
+                    proj.Developers.splice(dev,1);
+                toast.success("Developer deleted successfully!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            } else {
+                toast.error("Developer not found!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            }
+                }
+                
+            console.log(action)
+        },
+        deletetask:(state,action)=>{
+            const proj = state.data.find((ele) => ele.Project_id === action.payload.projectid);
+            if(proj){
+
+                const dev = proj.Developers.find((ele) => ele.D_id == action.payload.developerid)
+                if(dev){
+                    const task=dev.Tasks.findIndex((ele)=>ele.Task_id == action.payload.taskid)
+        if(task !== -1){
+            dev.Tasks.splice(dev,1);
+                toast.success("Task deleted successfully!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            } else {
+                toast.error("Task not found!", {
+                    position: "top-center",
+                    closeOnClick: true
+                });
+            }
+        
+                }
+            
+                 
+                }
+                
+            console.log(action)
         }
 
 
@@ -62,5 +213,5 @@ export const prodata = createSlice({
     }
 
 })
-export const { load, add, adddev } = prodata.actions
+export const { load, add, adddev, addtask ,taskupdate,projectupdate,deleteproject,deletedeveloper, deletetask} = prodata.actions
 export default prodata.reducer

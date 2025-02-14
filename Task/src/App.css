@@ -1,106 +1,290 @@
-/* General Container */
-.container {
-  width: 100%;
-  padding: 20px;
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Projects Section */
-.PROJECTS_CONTAINER {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* General container styling */
+.container {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f6f8;
   padding: 20px;
 }
 
+/* Navbar Styling */
+.Navbar {
+  background-color: #007BFF;
+  padding: 15px;
+  color: white;
+  font-size: 1.2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Project and Developer Sections */
 .Projects {
-  background-color: #f9f9f9;
+  background: white;
+  border-radius: 8px;
+  padding: 26px;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+gap:10px;
+}
+
+
+
+/* Developer and Task Containers */
+.Developercontainer, .taskcontainer {
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  margin: 10px 0;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.Projects h3 {
-  color: #333;
-  font-size: 1.2rem;
-  margin: 0;
+/* Hover effect for task and developer */
+.Developercontainer:hover, .taskcontainer:hover {
+  background-color: #e9ecef;
+  /* transform: scale(1.01); */
 }
 
-.Projects p {
-  font-size: 0.9rem;
-  color: #555;
-}
-
+/* Buttons */
 button {
-  background-color: #4CAF50;
-  color: white;
   padding: 10px 15px;
-  border: none;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
-  margin-top: 10px;
-  font-size: 0.9rem;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  margin: 5px 0;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
-/* Developer Section */
-.Developercontainer {
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #e9f5e9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.Developercontainer p {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.Developercontainer b {
-  color: #2a9d8f;
-}
-
-/* Task Section */
+/* Buttons Colors */
 .taskbtn {
-  background-color: #db2c0e;
+  background-color: #17a2b8;
+  color: white;
 }
 
-.taskbtn:hover {
-  background-color: #f57c00;
-}
-
-.taskcontainer {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #ffe0b2;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.taskcontainer p {
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.taskcontainer b {
-  color: #d1495b;
-}
-.Adddevarea {
-  margin-top: 20px;
+.adddevbtn {
+  background-color: #28a745;
+  color: white;
   
 }
 
-.Adddevarea button {
-  display: inline-block;
-  background-color: #576686;
-  padding: 8px 16px;
+.addtaskbtn {
+  background-color: #079cff;
+  color: white;
 }
 
-.Adddevarea button:hover {
-  background-color: #565e64;
+/* Hover Effect for Buttons */
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Status Color Classes */
+.pending {
+  color: #d34836;
+}
+
+.in-progress {
+  color: #17a2b8;
+}
+
+.review {
+  color: #fd7e14;
+}
+
+.testing {
+  color: #54d472;
+}
+
+.completed {
+  color: #12862f;
+}
+
+/* Add Task and Developer Forms */
+.Adddevarea, .Addtaskarea {
+  margin-top: 20px;
+  
+  justify-content: space-between;
+}
+
+/* Add Task and Developer Form Buttons */
+
+
+/* Toast Styling (For Toast Notifications) */
+.Toastify__toast-container {
+  font-size: 1em;
+  z-index: 9999;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .Projects {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .taskcontainer, .Developercontainer {
+    padding: 12px;
+    border:1px solid black;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .Adddevarea, .Addtaskarea {
+    flex-direction: column;
+  }
+}
+/* Task Container Styling */
+.taskcontainer {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-left: 5px solid transparent;
+  margin-bottom: 15px;
+}
+
+/* Different Status-based Background Colors */
+.pending {
+  /* background-color: #fff3cd; */
+  border-left: 5px solid #d34836;
+}
+
+.in-progress {
+  /* background-color: #d1ecf1; */
+  border-left: 5px solid #17a2b8;
+}
+
+.review {
+  /* background-color: #f8d7da; */
+  border-left: 5px solid #fd7e14;
+}
+
+.testing {
+  /* background-color: #d4edda; */
+  border-left: 5px solid #54d472;
+}
+
+.completed {
+  /* background-color: #c3e6cb; */
+  border-left: 5px solid #12862f;
+}
+
+/* Add Hover Effect for Task */
+.taskcontainer:hover {
+  /* transform: scale(1.02); */
+  background-color: #e9ecef;
+}
+
+/* Add Unique Borders or Shadow Effects to Different Tasks */
+.taskcontainer:nth-child(odd) {
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.taskcontainer:nth-child(even) {
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adding Icons to Tasks (Optional) */
+.taskcontainer .task-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Task Details Section */
+.task-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-details p {
+  font-size: 1.1em;
+}
+
+/* Task Status Section */
+.task-status {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Styling for Task Buttons */
+.task-container button {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.task-container button:hover {
+  background-color: #0056b3;
+}
+
+.deletelogo img{
+  width:20px;
+  
+  
+}
+.deletelogo{
+  background-color: white;
+  padding:0;
+margin-left: 99%;
+position:relative;
+margin-top: -5%;
+}
+.deletelogodev{
+  padding:0;
+margin-left: 98%;
+position:relative;
+margin-top: -1%;
+}
+.deletelogodev img{
+  width:20px;
+
+  
+  
+}
+
+.deletelogotask{
+  padding:0;
+margin-left: 98%;
+position:relative;
+margin-top: -3%;
+}
+.deletelogotask img{
+  width:20px;
+
+  
+  
+}
+.taskstatusoption{
+  display: flex;
+  gap:10px;
+  
 }

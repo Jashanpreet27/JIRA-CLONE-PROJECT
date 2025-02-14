@@ -1,0 +1,26 @@
+/* Style the button to look like a link */
+.link-button {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    color: #007bff; /* Blue color like a link */
+    font-size: 12px; /* Set font size */
+    text-decoration: underline; /* Underline the text */
+    cursor: pointer; /* Show pointer cursor on hover */
+    padding: 0; /* Remove padding */
+    font-weight: bold; /* Make the text bold */
+  }
+  
+  .link-button:hover {
+    color: #0056b3; /* Darker blue when hovered */
+    text-decoration: none; /* Remove underline on hover */
+  }
+  .option{
+    display:flex;
+    gap:25px;
+    padding : 10px;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+    
+  
+  
