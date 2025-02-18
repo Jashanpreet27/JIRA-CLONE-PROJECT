@@ -11,7 +11,9 @@ import Task from './components/Task'
 import Projectstatus from './components/Projectstatus'
 
 import img from './assets/delete.png'
-
+import editimg from './assets/edit.png'
+import Editproject from './components/Editproject'
+import Editdeveloper from './components/Editdeveloper'
 function App() {
   const [count, setCount] = useState(0)
   const [visibleDev, setVisibleDev] = useState({});
@@ -20,7 +22,8 @@ function App() {
   const [status, settaskstatus] = useState()
   const [devsec, setdevsec] = useState({})
   const [tasksec, settasksec] = useState({})
-
+  const [editproject,seteditproject]=useState({});
+  const [editdev,seteditdev]=useState({});
   const [taskStatus, setTaskStatus] = useState(""); // local state for task status
 
   const handleStatusChange = (e, taskid, did, pid) => {
@@ -30,6 +33,16 @@ function App() {
   const toggleDevVisibility = (projectid) => {
     setVisibleDev((prev) => ({ ...prev, [projectid]: !prev[projectid] }))
     console.log(visibleDev[projectid]);
+  }
+  
+  const toggleeditproject=(index) =>{
+    seteditproject((prev) => ({ ...prev, [index]: !prev[index] }))
+    // console.log(editproject[index]);
+  }
+
+  const toggleeditdev=(index) =>{
+    seteditdev((prev) => ({ ...prev, [index]: !prev[index] }))
+    // console.log(editproject[index]);
   }
 
 
@@ -76,6 +89,8 @@ function App() {
   function handletaskdelete(projectid, developerid, taskid) {
     dispatch(deletetask({ projectid, developerid, taskid }))
   }
+
+  
   return (
     <>
 
@@ -93,11 +108,19 @@ function App() {
 
                   <h3>{ele.Project_Name} <br /><br /><b className={getStatusClass(ele.status)}> (  {ele.status} )</b></h3>
                   <button className='deletelogo' onClick={() => handleprojectdelte(ele.Project_id)}><img src={img} alt="DELETE" ></img></button>
+                  <button className='editlogo' onClick={() => toggleeditproject(index) }><img src={editimg} alt="Edit" ></img></button>
                   <br/><br /><Projectstatus id={ele.Project_id} />
                   <br /> <p>{ele.Project_Description}</p>
                   <br /><p>Start on {ele.start_date}</p>
-
+                  {editproject[index] && <Editproject name={ele.Project_Name} Desc={ele.Project_Description} id={ele.Project_id}/>}
                   <br /> <button onClick={() => toggleDevVisibility(index)}>DEVELOPER LIST</button>
+
+
+
+
+
+
+
 
                   {visibleDev[index] &&
                     <>
@@ -109,9 +132,13 @@ function App() {
                                 key={index}>
                                 <p>DEVELOPER NAME : <b>{item.D_Name}</b></p>
                                 <button className='deletelogodev' onClick={() => handledeveloperdelte(ele.Project_id, item.D_id)}><img src={img} alt="DELETE" ></img></button>
+                                <button className='editlogodev' onClick={() => toggleeditdev(index) }><img src={editimg} alt="Edit" ></img></button>
                                 <br /> <p>DEVELOPER ID : <b>{item.D_id}</b></p>
                                 <br /> <p>ROLE : <b>{(item.Role)}</b></p>
                                 <br /><p>DEVELOPER EMAIL : <b>{item.D_Email}</b></p>
+
+
+                                {editdev[index] && <Editdeveloper name={item.D_Name} email={item.D_Email} role={item.Role} pid={ele.Project_id} did={item.D_id}/>}
                                 <br /><button
                                   className='taskbtn'
                                   onClick={() => toggleTaskVisibility(item.D_id)}

@@ -288,3 +288,28 @@ margin-top: -3%;
   gap:10px;
   
 }
+.editlogo img{
+  width:20px;
+  
+  
+}
+.editlogo{
+  background-color: white;
+  padding:0;
+margin-left: 96%;
+position:relative;
+margin-top: -5%;
+}
+
+.editlogodev{
+  padding:0;
+margin-left: 95%;
+position:relative;
+margin-top: -1.5%;
+}
+.editlogodev img{
+  width:20px;
+
+  
+  
+}
